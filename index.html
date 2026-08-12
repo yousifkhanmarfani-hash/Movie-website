@@ -1,115 +1,323 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>My Movie Website</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Movie World</title>
+
+    <style>
+        body {
+            margin: 0;
+            background: #111;
+            color: white;
+            font-family: Arial, sans-serif;
+        }
+
+        .navbar {
+            background: #000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 25px;
+        }
+
+        .navbar h2 {
+            color: red;
+            margin: 0;
+        }
+
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            margin-left: 15px;
+        }
+
+        .navbar a:hover {
+            color: red;
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        #searchBox {
+            display: block;
+            padding: 12px;
+            width: 80%;
+            max-width: 400px;
+            margin: 20px auto;
+            border-radius: 6px;
+            border: none;
+            font-size: 16px;
+        }
+
+        .categories {
+            text-align: center;
+            margin: 15px;
+        }
+
+        .categories button {
+            background: #333;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            margin: 5px;
+            border-radius: 20px;
+            cursor: pointer;
+        }
+
+        .categories button:hover {
+            background: red;
+        }
+
+        .movies {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .movie-card {
+            background: #222;
+            width: 250px;
+            margin: 15px;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .movie-card img {
+            width: 100%;
+            border-radius: 8px;
+        }
+
+        .movie-card button {
+            background: red;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            margin: 5px;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        .movie-card button:hover {
+            background: darkred;
+        }
+
+        .details-box {
+            display: none;
+            background: #181818;
+            max-width: 500px;
+            margin: 30px auto;
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            border: 1px solid #444;
+        }
+
+        .details-box h2 {
+            color: red;
+        }
+
+        .footer {
+            background: #000;
+            color: #aaa;
+            text-align: center;
+            padding: 25px;
+            margin-top: 40px;
+        }
+
+        .footer h3 {
+            color: red;
+        }
+
+        @media (max-width: 600px) {
+            .navbar {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .movie-card {
+                width: 85%;
+            }
+        }
+    </style>
 </head>
 
-<nav class="navbar">
-    <h2>🎬 Movie World</h2>
+<body>
 
-    <div>
-        <a href="#">Home</a>
-        <a href="#">Movies</a>
-        <a href="#">About</a>
-    </div>
-</nav>
+    <nav class="navbar">
+        <h2>🎬 Movie World</h2>
 
-<div id="detailsBox" class="details-box">
-    <h2>🎬 Avengers</h2>
-    <p>📅 Release: 2012</p>
-    <p>⭐ Rating: 8.5/10</p>
-    <p>Earth's mightiest heroes come together to save the world.</p>
-
-    <button onclick="closeDetails()">✖ Close</button>
-</div>
-
-<footer class="footer">
-    <h3>🎬 Movie World</h3>
-    <p>© 2026 Movie World. All rights reserved.</p>
-    <p>Made with ❤️ Muhammad Yousif, From Pakistan.</p>
-</footer>
-
-<body> 
+        <div>
+            <a href="#">Home</a>
+            <a href="#">Movies</a>
+            <a href="#">About</a>
+        </div>
+    </nav>
 
     <h1>🎬 My Movie World</h1>
 
-    <p>Welcome to my movie website!</p>
-<div class="movie-card">
-<div class="movie-card">
+    <input
+        id="searchBox"
+        type="text"
+        placeholder="🔎 Search movie..."
+        onkeyup="searchMovies()"
+    >
 
-<input
-    id="searchBox"
-    type="text"
-    placeholder="🔎 Search movie..."
-    onkeyup="searchMovies()"
->
+    <div class="categories">
+        <button onclick="showCategory('all')">All</button>
+        <button onclick="showCategory('action')">Action</button>
+        <button onclick="showCategory('comedy')">Comedy</button>
+        <button onclick="showCategory('horror')">Horror</button>
+        <button onclick="showCategory('romance')">Romance</button>
+    </div>
 
-<div class="categories">
-  <div class="categories">
-    <button onclick="showCategory('all')">All</button>
-    <button onclick="showCategory('action')">Action</button>
-    <button onclick="showCategory('comedy')">Comedy</button>
-    <button onclick="showCategory('horror')">Horror</button>
-    <button onclick="showCategory('romance')">Romance</button>
-</div>
-</div>
+    <div class="movies">
+
+        <div class="movie-card action">
+            <img src="https://picsum.photos/250/350?random=1"
+                 alt="Avengers Poster">
+
+            <h2>Avengers</h2>
+
+            <p>📅 Release: 2012</p>
+            <p>⭐ Rating: 8.5/10</p>
+
+            <button onclick="showDetails()">
+                📖 View Details
+            </button>
+
+            <a href="https://www.youtube.com/results?search_query=Avengers+official+trailer"
+               target="_blank">
+                <button>▶ Watch Trailer</button>
+            </a>
+        </div>
+
+        <div class="movie-card romance">
+            <img src="https://picsum.photos/250/350?random=2"
+                 alt="Avatar Poster">
+
+            <h2>Avatar</h2>
+
+            <p>📅 Release: 2009</p>
+            <p>⭐ Rating: 8.0/10</p>
+
+            <a href="https://www.youtube.com/results?search_query=Avatar+official+trailer"
+               target="_blank">
+                <button>▶ Watch Trailer</button>
+            </a>
+        </div>
+
+        <div class="movie-card action">
+            <img src="https://picsum.photos/250/350?random=3"
+                 alt="Batman Poster">
+
+            <h2>Batman</h2>
+
+            <p>📅 Release: 2022</p>
+            <p>⭐ Rating: 8.8/10</p>
+
+            <a href="https://www.youtube.com/results?search_query=Batman+official+trailer"
+               target="_blank">
+                <button>▶ Watch Trailer</button>
+            </a>
+        </div>
+
+    </div>
+
+    <div id="detailsBox" class="details-box">
+
+        <h2>🎬 Avengers</h2>
+
+        <p>📅 Release: 2012</p>
+        <p>⭐ Rating: 8.5/10</p>
+
+        <p>
+            Earth's mightiest heroes come together
+            to save the world.
+        </p>
+
+        <button onclick="closeDetails()">
+            ✖ Close
+        </button>
+
+    </div>
+
+    <footer class="footer">
+        <h3>🎬 Movie World</h3>
+        <p>© 2026 Movie World</p>
+        <p>Made with ❤️ using HTML, CSS & JavaScript.</p>
+    </footer>
+
+    <script>
+
+        function searchMovies() {
+
+            let search = document
+                .getElementById("searchBox")
+                .value
+                .toLowerCase();
+
+            let movies = document.querySelectorAll(".movie-card");
+
+            movies.forEach(function(movie) {
+
+                let name = movie
+                    .querySelector("h2")
+                    .innerText
+                    .toLowerCase();
+
+                if (name.includes(search)) {
+                    movie.style.display = "block";
+                } else {
+                    movie.style.display = "none";
+                }
+
+            });
+        }
 
 
-    <img src="https://picsum.photos/250/350?random=2" alt="Avatar Poster">
+        function showCategory(category) {
 
-    <h2>Avatar</h2>
+            let movies = document.querySelectorAll(".movie-card");
 
-    <p>⭐ Rating: 8.0/10</p>
+            movies.forEach(function(movie) {
 
-    <button>▶ Watch Trailer</button>
+                if (category === "all") {
 
-</div>
-<div class="movie-card action">
-<div class="movie-card romance">
-<div class="movie-card action">
+                    movie.style.display = "block";
 
+                } else if (movie.classList.contains(category)) {
 
-<div class="movie-card">
+                    movie.style.display = "block";
 
-    <img src="https://picsum.photos/250/350?random=3" alt="Batman Poster">
+                } else {
 
-    <h2>Batman</h2>
+                    movie.style.display = "none";
 
-    <p>⭐ Rating: 8.8/10</p>
+                }
 
-    <button>▶ Watch Trailer</button>
-
-</div>
-<div class="movie-card action">
-<div class="movie-card romance">
-<div class="movie-card action">
-
-   <img src="https://picsum.photos/250/350" alt="Avengers Poster"> 
-
-<h2>Avengers</h2>
-    <p>⭐ Rating: 8.5/10</p>
-    <a
-
-<p>📅 Release: 2012</p>
-
-<p>
-    Earth's mightiest heroes come together to save the world.
-</p>
-
-<p>⭐ Rating: 8.5/10</p>
- href="https://www.youtube.com/results?
-<div class="movie-card action">
-<div class="movie-card romance">
-<div class="movie-card action">
+            });
+        }
 
 
-search_query=Avengers+official+trailer" target="_blank">
-    <button>▶ Watch Trailer</button>
-</a>
+        function showDetails() {
 
-<button onclick="showDetails()">📖 View Details</button>
+            document.getElementById("detailsBox").style.display = "block";
+
+        }
 
 
+        function closeDetails() {
+
+            document.getElementById("detailsBox").style.display = "none";
+
+        }
+
+    </script>
 
 </body>
 </html>
